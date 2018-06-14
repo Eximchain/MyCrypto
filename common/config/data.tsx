@@ -1,4 +1,3 @@
-import React from 'react'; // For ANNOUNCEMENT_MESSAGE jsx
 import { getValues } from '../utils/helpers';
 import packageJson from '../../package.json';
 import { GasPriceSetting } from 'types/network';
@@ -24,12 +23,6 @@ export const APP_ALPHA_EXPIRATION = 1532476800000;
 // Type can be primary, warning, danger, success, info, or blank for grey.
 // Message must be a JSX element if you want to use HTML.
 export const ANNOUNCEMENT_TYPE = '';
-export const ANNOUNCEMENT_MESSAGE = (
-  <React.Fragment>
-    Welcome to the new MyCrypto. We hope you like it! If it's urgent and you need the old site, you
-    can still use <NewTabLink href="https://legacy.mycrypto.com">MyCrypto Legacy</NewTabLink>
-  </React.Fragment>
-);
 
 const etherScan = 'https://etherscan.io';
 const blockChainInfo = 'https://blockchain.info';

@@ -17,7 +17,7 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 import { Link } from 'react-router-dom';
 import { TSetGasPriceField, setGasPriceField } from 'actions/transaction';
-import { ANNOUNCEMENT_MESSAGE, ANNOUNCEMENT_TYPE, languages } from 'config';
+import { ANNOUNCEMENT_TYPE, languages } from 'config';
 import Navigation from './components/Navigation';
 import OnlineStatus from './components/OnlineStatus';
 import NetworkDropdown from './components/NetworkDropdown';
@@ -99,12 +99,6 @@ class Header extends Component<Props, State> {
 
     return (
       <div className="Header">
-        {ANNOUNCEMENT_MESSAGE && (
-          <div className={`Header-announcement is-${ANNOUNCEMENT_TYPE}`}>
-            {ANNOUNCEMENT_MESSAGE}
-          </div>
-        )}
-
         <section className="Header-branding">
           <section className="Header-branding-inner container">
             <Link to="/" className="Header-branding-title" aria-label="Go to homepage">
