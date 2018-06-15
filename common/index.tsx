@@ -13,13 +13,13 @@ const appEl = document.getElementById('app');
 
 render(<Root store={configuredStore} />, appEl);
 
-if (module.hot) {
-  module.hot.accept('reducers', () => configuredStore.replaceReducer(require('reducers')));
+// if (module.hot) {
+//   module.hot.accept('reducers', () => configuredStore.replaceReducer(require('reducers')));
 
-  module.hot.accept('./Root', () => {
-    render(<Root store={configuredStore} />, appEl);
-  });
-}
+//   module.hot.accept('./Root', () => {
+//     render(<Root store={configuredStore} />, appEl);
+//   });
+// }
 
 if (process.env.NODE_ENV === 'production') {
   consoleAdvertisement();
