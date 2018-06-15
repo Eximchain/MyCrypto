@@ -20,7 +20,7 @@ app.use('/execute-transaction', (req, res) => {
 
 app.use('/get-balance', (req, res) => {
   const { address } = req.body;
-  res.send({ balance: 123 });
+  res.send({ balance: '100000000000000000000'});
 });
 
 app.listen(7000, () => console.log('http://localhost:7000'));
