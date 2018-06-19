@@ -1,5 +1,3 @@
-import { StaticNetworksState, CustomNetworksState } from 'reducers/config/networks';
-
 type StaticNetworkIds =
   | 'ETH'
   | 'Ropsten'
@@ -15,6 +13,7 @@ type StaticNetworkIds =
   | 'ETSC'
   | 'EGEM'
   | 'CLO'
+  | 'RSK_TESTNET'
   | 'GO';
 
 export interface BlockExplorerConfig {
@@ -80,4 +79,4 @@ interface CustomNetworkConfig {
   dPathFormats: DPathFormats | null;
 }
 
-type NetworkConfig = StaticNetworksState[StaticNetworkIds] | CustomNetworksState[string];
+type NetworkConfig = CustomNetworkConfig | StaticNetworkConfig;

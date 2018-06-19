@@ -110,6 +110,7 @@ export const NODE_CONFIGS: { [key in StaticNetworkIds]: RawNodeConfig[] } = {
       url: 'https://node.expanse.tech/'
     }
   ],
+
   POA: [
     {
       name: makeNodeName('POA', 'core'),
@@ -170,6 +171,15 @@ export const NODE_CONFIGS: { [key in StaticNetworkIds]: RawNodeConfig[] } = {
       type: 'rpc',
       service: '0xinfra.com',
       url: 'https://clo-geth.0xinfra.com/'
+    }
+  ],
+
+  RSK_TESTNET: [
+    {
+      name: makeNodeName('RSK_TESTNET', 'rsk_testnet'),
+      type: 'rpc',
+      service: 'mycrypto.testnet.rsk.co',
+      url: 'https://mycrypto.testnet.rsk.co/'
     }
   ],
 
