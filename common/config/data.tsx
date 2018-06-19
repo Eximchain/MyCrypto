@@ -2,7 +2,7 @@ import { getValues } from '../utils/helpers';
 import packageJson from '../../package.json';
 import { GasPriceSetting } from 'types/network';
 import { makeExplorer } from 'utils/helpers';
-import NewTabLink from 'components/ui/NewTabLink';
+// import NewTabLink from 'components/ui/NewTabLink';
 
 export const languages = require('./languages.json');
 export const discordURL = 'https://discord.gg/VSaTXEA';
@@ -71,7 +71,8 @@ export enum SecureWalletName {
   WEB3 = 'web3',
   LEDGER_NANO_S = 'ledgerNanoS',
   TREZOR = 'trezor',
-  PARITY_SIGNER = 'paritySigner'
+  PARITY_SIGNER = 'paritySigner',
+  EXIMCHAIN = 'eximchain'
 }
 
 export enum HardwareWalletName {

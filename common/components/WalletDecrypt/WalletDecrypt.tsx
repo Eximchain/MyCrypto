@@ -38,7 +38,8 @@ import {
   Web3Decrypt,
   WalletButton,
   ParitySignerDecrypt,
-  InsecureWalletWarning
+  InsecureWalletWarning,
+  EximchainDecrypt
 } from './components';
 import './WalletDecrypt.scss';
 
@@ -53,6 +54,7 @@ interface DispatchProps {
   unlockMnemonic: walletActions.TUnlockMnemonic;
   unlockPrivateKey: walletActions.TUnlockPrivateKey;
   unlockWeb3: walletActions.TUnlockWeb3;
+  unlockEximchain: walletActions.TUnlockEximchain;
   setWallet: walletActions.TSetWallet;
   resetTransactionRequested: transactionFieldsActions.TResetTransactionRequested;
   showNotification: notificationsActions.TShowNotification;
@@ -149,6 +151,12 @@ const WalletDecrypt = withRouter<Props>(
         initialParams: {},
         unlock: this.props.setWallet,
         helpLink: paritySignerHelpLink
+      },
+      [SecureWalletName.EXIMCHAIN]: {
+        lid: 'X_EXIMCHAIN',
+        description: 'ADD_EXIMCHAIN_DESC',
+        unlock: this.props.unlockEximchain,
+        component: EximchainDecrypt
       },
       [InsecureWalletName.KEYSTORE_FILE]: {
         lid: 'X_KEYSTORE2',

@@ -15,7 +15,7 @@ import {
   makeWeb3Network,
   getShepherdManualMode
 } from 'libs/nodes';
-import { Web3Wallet } from 'libs/wallet';
+import { Web3Wallet, EximchainWallet } from 'libs/wallet';
 import { setupWeb3Node, Web3Service, isWeb3Node } from 'libs/nodes/web3';
 import { AppState } from 'features/reducers';
 import { showNotification } from 'features/notifications/actions';
@@ -293,6 +293,39 @@ export function* initWeb3Node(): SagaIterator {
 
   yield put(web3SetNode({ id, config }));
   return lib;
+}
+
+export function* unlockEximchain(): SegaIterator {
+  try {
+    const nodeLib = yield call(initEximchainNode);
+
+    yield put(changeNodeRequested('eximchain'));
+    yield take(
+      (action: any) =>
+        action.type === CONFIG_NODES_SELECTED.CHANGE_SUCCEEDED &&
+        action.payload.nodeId === 'eximchain'
+    );
+
+    const eximchainNode: any | null = yield select(getEximchainNode);
+
+    if (!eximchainNode) {
+      throw new Error('Eximchain node config not found');
+    }
+
+    const key = yield apply(nodeLib, nodeLib.getVaultKey);
+
+    if (!key) {
+      throw new Error('No key from eximchain');
+    }
+
+    const wallet = new EximchainWallet(key);
+    yield put(setWallet(wallet));
+  } catch (err) {
+    console.error(err);
+    // unset web3 node so node dropdown isn't disabled
+    yield put(web3UnsetNode());
+    yield put(showNotification('danger', translateRaw(err.message)));
+  }
 }
 
 // inspired by v3:

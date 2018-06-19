@@ -2,20 +2,10 @@ import { IRPCProvider } from 'mycrypto-shepherd/dist/lib/types';
 import { Wei } from 'libs/units';
 
 export class EximchainProvider implements IRPCProvider {
-  endpoint: string;
+  private endpoint: string;
 
   constructor(endpoint: string) {
     this.endpoint = endpoint;
-  }
-
-  private fetch(path: string, body): Promise<any> {
-    return fetch(`${this.endpoint}${path}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    }).then(r => r.json());
   }
 
   public getNetVersion(): Promise<string> {
@@ -47,6 +37,7 @@ export class EximchainProvider implements IRPCProvider {
 
   public getTransactionCount(address: string): Promise<string> {
     console.log('eximchain.getTransactionCount');
+    return Promise.resolve('0x121');
   }
 
   public getCurrentBlock(): Promise<string> {
@@ -62,5 +53,15 @@ export class EximchainProvider implements IRPCProvider {
 
   public getTransactionReceipt(txhash: string): Promise<TransactionReceipt> {
     console.log('eximchain.getTransactionReceipt');
+  }
+
+  private fetch(path: string, body): Promise<any> {
+    return fetch(`${this.endpoint}${path}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    }).then(r => r.json());
   }
 }

@@ -35,6 +35,13 @@ export function unlockWeb3(): types.UnlockWeb3Action {
   };
 }
 
+export type TUnlockEximchain = typeof unlockEximchain;
+export function unlockEximchain() {
+  return {
+    type: types.WalletActions.UNLOCK_EXIMCHAIN
+  };
+}
+
 export type TSetWallet = typeof setWallet;
 export function setWallet(value: IWallet): types.SetWalletAction {
   return {
