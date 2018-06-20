@@ -23,6 +23,16 @@ export const getWeb3Node = (state: AppState): StaticNodeConfig | null => {
   return null;
 };
 
+export const getEximchainNode = (state: AppState): StaticNodeConfig | null => {
+  const isEximchainNode = (nodeId: string) => nodeId === 'eximchain';
+  const currNode = getStaticNodeConfig(state);
+  const currNodeId = getNodeId(state);
+  if (currNode && currNodeId && isEximchainNode(currNodeId)) {
+    return currNode;
+  }
+  return null;
+};
+
 export function getIsWeb3Node(state: AppState): boolean {
   return getNodeId(state) === 'web3';
 }

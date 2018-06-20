@@ -43,9 +43,10 @@ export default class EximchainNode {
     return Promise.resolve('0x121');
   }
 
+  // todo
   public getCurrentBlock(): Promise<string> {
     console.log('eximchain.getCurrentBlock');
-    return Promise.resolve('current block not supported yet');
+    return Promise.resolve('100000000000');
   }
 
   public sendRawTx(signedTx: string): Promise<string> {}
@@ -77,5 +78,5 @@ export async function setupEximchainNode() {
     throw new Error('Not vault key from eximchain');
   }
 
-  return { lib, key };
+  return { lib, chainId: 8888888 };
 }

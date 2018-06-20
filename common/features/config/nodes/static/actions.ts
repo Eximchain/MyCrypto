@@ -13,3 +13,18 @@ export function web3UnsetNode(): Web3UnsetNodeAction {
     type: CONFIG_NODES_STATIC.WEB3_UNSET
   };
 }
+
+export type TEximchainSetNode = typeof eximchainSetNode;
+export function eximchainSetNode(payload) {
+  return {
+    type: CONFIG_NODES_STATIC.EXIMCHAIN_SET,
+    payload
+  };
+}
+
+export type TEximchainUnsetNode = typeof eximchainUnsetNode;
+export function eximchainUnsetNode() {
+  return {
+    type: CONFIG_NODES_STATIC.EXIMCHAIN_UNSET
+  };
+}

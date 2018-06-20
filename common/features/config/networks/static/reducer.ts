@@ -38,7 +38,7 @@ export const STATIC_NETWORKS_INITIAL_STATE: StaticNetworksState = {
     id: 'EXIMCHAIN',
     name: 'Eximchain',
     unit: 'ETH',
-    chainId: 8888,
+    chainId: 8888888,
     isCustom: false,
     color: '#3498db',
     blockExplorer: makeExplorer({

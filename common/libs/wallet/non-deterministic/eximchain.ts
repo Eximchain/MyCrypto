@@ -17,5 +17,7 @@ export default class EximchainWallet implements IFullWallet {
     return Promise.reject(new Error('Eximchain wallets cannot sign raw transactions.'));
   }
 
-  public async signMessage(msg: string, nodeLib: Web3Node | INode): Promise<string> | string {}
+  public async signMessage(msg: string, nodeLib): Promise<string> | string {
+    return 'signed message';
+  }
 }

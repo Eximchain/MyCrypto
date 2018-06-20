@@ -1,5 +1,5 @@
-export const EXIMCHAIN_EXECUTOR: DPath = {
-  label: 'EXECUTOR (EXIMCHAIN)',
+export const EXIMCHAIN_DEFAULT: DPath = {
+  label: 'DEFAULT (EXIMCHAIN)',
   value: "m/44'/60'/0'/0"
 };
 
@@ -94,6 +94,7 @@ export const GO_DEFAULT: DPath = {
 };
 
 export const DPaths: DPath[] = [
+  EXIMCHAIN_DEFAULT,
   ETH_DEFAULT,
   ETH_TREZOR,
   ETH_LEDGER,

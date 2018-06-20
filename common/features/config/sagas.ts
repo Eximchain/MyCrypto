@@ -30,7 +30,7 @@ import { getNetworkConfigById, getNetworkByChainId } from './networks/selectors'
 import { CONFIG_NETWORKS_CUSTOM } from './networks/custom/types';
 import { removeCustomNetwork } from './networks/custom/actions';
 import { getCustomNetworkConfigs } from './networks/custom/selectors';
-import { getNodeConfig, getWeb3Node } from './nodes/selectors';
+import { getNodeConfig, getWeb3Node, getEximchainNode } from './nodes/selectors';
 import {
   CONFIG_NODES_CUSTOM,
   AddCustomNodeAction,
@@ -52,7 +52,12 @@ import {
 import { SELECTED_NODE_INITIAL_STATE } from './nodes/selected/reducer';
 import { getNodeId, getPreviouslySelectedNode } from './nodes/selected/selectors';
 import { CONFIG_NODES_STATIC } from './nodes/static/types';
-import { web3SetNode, web3UnsetNode } from './nodes/static/actions';
+import {
+  web3SetNode,
+  web3UnsetNode,
+  eximchainSetNode,
+  eximchainUnsetNode
+} from './nodes/static/actions';
 import { isStaticNodeId } from './nodes/static/selectors';
 import { getAllNodes, getStaticNodeFromId } from './selectors';
 
@@ -299,22 +304,21 @@ export function* initWeb3Node(): SagaIterator {
 let eximchainAdded = false;
 
 export function* initEximchainNode(): SagaIterator {
-  const { lib } = yield call(setupEximchainNode);
-
+  const { chainId, lib } = yield call(setupEximchainNode);
   const network = yield select(getNetworkByChainId, chainId);
 
   if (!network) {
     throw new Error(`MyCrypto doesn’t support the network with chain ID '${chainId}'`);
   }
 
-  const eximchainNetwork = makeEximchainNetwork(network.id);
-  const id = 'web3';
+  const eximchainNetwork = network.id;
+  const id = 'eximchain';
 
   const config: StaticNodeConfig = {
     id,
     isCustom: false,
     network: eximchainNetwork as any,
-    service: Web3Service,
+    service: 'Executor',
     hidden: true
   };
 
@@ -328,13 +332,11 @@ export function* initEximchainNode(): SagaIterator {
 
   eximchainAdded = true;
 
-  // yield put(eximchainSetNode({ id, config }));
+  yield put(eximchainSetNode({ id, config }));
   return lib;
 }
 
 export function* unlockEximchain(): SagaIterator {
-  console.log('unlock eximchain');
-
   try {
     const nodeLib = yield call(initEximchainNode);
 
@@ -362,8 +364,7 @@ export function* unlockEximchain(): SagaIterator {
     yield put(setWallet(wallet));
   } catch (err) {
     console.error(err);
-    // unset web3 node so node dropdown isn't disabled
-    yield put(web3UnsetNode());
+    yield put(eximchainUnsetNode());
     yield put(showNotification('danger', translateRaw(err.message)));
   }
 }
