@@ -114,6 +114,12 @@ const WalletDecrypt = withRouter<Props>(
     // https://github.com/Microsoft/TypeScript/issues/13042
     // index signature should become [key: Wallets] (from config) once typescript bug is fixed
     public WALLETS: Wallets = {
+      [SecureWalletName.EXIMCHAIN]: {
+        lid: 'X_EXIMCHAIN',
+        description: 'ADD_EXIMCHAIN_DESC',
+        component: EximchainDecrypt,
+        unlock: this.props.unlockEximchain
+      },
       [SecureWalletName.WEB3]: {
         lid: web3info.lid,
         icon: web3info.icon,
@@ -151,12 +157,6 @@ const WalletDecrypt = withRouter<Props>(
         initialParams: {},
         unlock: this.props.setWallet,
         helpLink: paritySignerHelpLink
-      },
-      [SecureWalletName.EXIMCHAIN]: {
-        lid: 'X_EXIMCHAIN',
-        description: 'ADD_EXIMCHAIN_DESC',
-        unlock: this.props.unlockEximchain,
-        component: EximchainDecrypt
       },
       [InsecureWalletName.KEYSTORE_FILE]: {
         lid: 'X_KEYSTORE2',
@@ -483,6 +483,7 @@ export default connect(mapStateToProps, {
   unlockMnemonic: walletActions.unlockMnemonic,
   unlockPrivateKey: walletActions.unlockPrivateKey,
   unlockWeb3: walletActions.unlockWeb3,
+  unlockEximchain: walletActions.unlockEximchain,
   setWallet: walletActions.setWallet,
   resetTransactionRequested: transactionFieldsActions.resetTransactionRequested,
   showNotification: notificationsActions.showNotification

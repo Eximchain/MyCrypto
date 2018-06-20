@@ -1,4 +1,5 @@
 type StaticNetworkIds =
+  | 'EXIMCHAIN'
   | 'ETH'
   | 'Ropsten'
   | 'Kovan'

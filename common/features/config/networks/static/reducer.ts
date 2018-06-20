@@ -34,6 +34,28 @@ const testnetDefaultGasPrice = {
 };
 
 export const STATIC_NETWORKS_INITIAL_STATE: StaticNetworksState = {
+  EXIMCHAIN: {
+    id: 'EXIMCHAIN',
+    name: 'Eximchain',
+    unit: 'ETH',
+    chainId: 8888,
+    isCustom: false,
+    color: '#3498db',
+    blockExplorer: makeExplorer({
+      name: 'Etherscan',
+      origin: 'https://etherscan.io'
+    }),
+    tokenExplorer: {
+      name: ethPlorer,
+      address: ETHTokenExplorer
+    },
+    tokens: [],
+    contracts: [],
+    dPathFormats: {},
+    gasPriceSettings: gasPriceDefaults,
+    shouldEstimateGasPrice: true
+  },
+
   ETH: {
     id: 'ETH',
     name: 'Ethereum',

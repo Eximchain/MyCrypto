@@ -17,6 +17,7 @@ import {
 } from 'libs/nodes';
 import { Web3Wallet, EximchainWallet } from 'libs/wallet';
 import { setupWeb3Node, Web3Service, isWeb3Node } from 'libs/nodes/web3';
+import { setupEximchainNode } from 'libs/nodes/eximchain';
 import { AppState } from 'features/reducers';
 import { showNotification } from 'features/notifications/actions';
 import * as walletTypes from 'features/wallet/types';
@@ -295,7 +296,45 @@ export function* initWeb3Node(): SagaIterator {
   return lib;
 }
 
-export function* unlockEximchain(): SegaIterator {
+let eximchainAdded = false;
+
+export function* initEximchainNode(): SagaIterator {
+  const { lib } = yield call(setupEximchainNode);
+
+  const network = yield select(getNetworkByChainId, chainId);
+
+  if (!network) {
+    throw new Error(`MyCrypto doesn’t support the network with chain ID '${chainId}'`);
+  }
+
+  const eximchainNetwork = makeEximchainNetwork(network.id);
+  const id = 'web3';
+
+  const config: StaticNodeConfig = {
+    id,
+    isCustom: false,
+    network: eximchainNetwork as any,
+    service: Web3Service,
+    hidden: true
+  };
+
+  if (getShepherdManualMode()) {
+    yield apply(shepherd, shepherd.auto);
+  }
+
+  if (!eximchainAdded) {
+    shepherd.useProvider('eximchain', id, makeProviderConfig({ network: eximchainNetwork }));
+  }
+
+  eximchainAdded = true;
+
+  // yield put(eximchainSetNode({ id, config }));
+  return lib;
+}
+
+export function* unlockEximchain(): SagaIterator {
+  console.log('unlock eximchain');
+
   try {
     const nodeLib = yield call(initEximchainNode);
 
@@ -312,13 +351,14 @@ export function* unlockEximchain(): SegaIterator {
       throw new Error('Eximchain node config not found');
     }
 
+    const network = eximchainNode.network;
     const key = yield apply(nodeLib, nodeLib.getVaultKey);
 
     if (!key) {
       throw new Error('No key from eximchain');
     }
 
-    const wallet = new EximchainWallet(key);
+    const wallet = new EximchainWallet(key, network);
     yield put(setWallet(wallet));
   } catch (err) {
     console.error(err);
@@ -415,5 +455,7 @@ export function* configSaga(): SagaIterator {
     takeEvery(walletTypes.WalletActions.UNLOCK_WEB3, unlockWeb3)
   ];
 
-  yield all([...networkSaga, ...nodeSaga, ...web3]);
+  const eximchain = [takeEvery(walletTypes.WalletActions.UNLOCK_EXIMCHAIN, unlockEximchain)];
+
+  yield all([...networkSaga, ...nodeSaga, ...web3, ...eximchain]);
 }

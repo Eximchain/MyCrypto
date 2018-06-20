@@ -2,7 +2,7 @@ import { shepherd, redux } from 'mycrypto-shepherd';
 import { IProviderConfig } from 'mycrypto-shepherd/dist/lib/ducks/providerConfigs';
 
 import { NodeConfig } from 'types/node';
-import { EximchainProvider } from './eximchain';
+import EximchainNode from './eximchain';
 import { tokenBalanceHandler } from './tokenBalanceProxy';
 import { NODE_CONFIGS, makeNodeName } from './configs';
 import { INode } from '.';
@@ -11,7 +11,7 @@ type DeepPartial<T> = Partial<{ [key in keyof T]: Partial<T[key]> }>;
 const { selectors, store } = redux;
 const { providerBalancerSelectors: { balancerConfigSelectors } } = selectors;
 
-shepherd.addProvider('eximchain', EximchainProvider);
+shepherd.addProvider('eximchain', EximchainNode);
 
 export const makeProviderConfig = (options: DeepPartial<IProviderConfig> = {}): IProviderConfig => {
   const defaultConfig: IProviderConfig = {

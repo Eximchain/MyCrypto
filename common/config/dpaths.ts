@@ -1,3 +1,8 @@
+export const EXIMCHAIN_EXECUTOR: DPath = {
+  label: 'EXECUTOR (EXIMCHAIN)',
+  value: "m/44'/60'/0'/0"
+};
+
 export const ETH_DEFAULT: DPath = {
   label: 'Default (ETH)',
   value: "m/44'/60'/0'/0"

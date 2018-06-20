@@ -1,7 +1,6 @@
-import { IRPCProvider } from 'mycrypto-shepherd/dist/lib/types';
 import { Wei } from 'libs/units';
 
-export class EximchainProvider implements IRPCProvider {
+export default class EximchainNode {
   private endpoint: string;
 
   constructor(endpoint: string) {
@@ -11,6 +10,10 @@ export class EximchainProvider implements IRPCProvider {
   public getNetVersion(): Promise<string> {
     console.log('eximchain.getNetVersion');
     return Promise.resolve('0.1.0');
+  }
+
+  public getVaultKey(): Promise<string> {
+    return this.fetch('/get-vault-key').then(data => data.key);
   }
 
   public ping(): Promise<boolean> {
@@ -64,4 +67,15 @@ export class EximchainProvider implements IRPCProvider {
       body: JSON.stringify(body)
     }).then(r => r.json());
   }
+}
+
+export async function setupEximchainNode() {
+  const lib = new EximchainNode('http://localhost:7000');
+  const key = await lib.getVaultKey();
+
+  if (!key) {
+    throw new Error('Not vault key from eximchain');
+  }
+
+  return { lib, key };
 }

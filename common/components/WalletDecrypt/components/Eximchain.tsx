@@ -1,3 +1,14 @@
 import React from 'react';
 
-export const EximchainDecrypt: React.SFC<Props> = () => <div>Eximchain unlock</div>;
+interface Props {
+  onUnlock(): void;
+}
+
+export const EximchainDecrypt: React.SFC<Props> = ({ onUnlock }) => (
+  <div>
+    Eximchain unlock
+    <button className="btn btn-primary btn-lb btn-block" onClick={onUnlock}>
+      Unlock
+    </button>
+  </div>
+);
