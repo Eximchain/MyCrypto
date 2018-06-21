@@ -117,6 +117,20 @@ export function* signWeb3TransactionHandler({ tx }: IFullWalletAndTransaction): 
 
 const signWeb3Transaction = signTransactionWrapper(signWeb3TransactionHandler);
 
+export function* signEximchainTransactionHandler({ tx }: IFullWalletAndTransaction): SagaIterator {
+  const serializedTransaction: Buffer = yield apply(tx, tx.serialize);
+  const indexingHash: string = yield call(computeIndexingHash, serializedTransaction);
+
+  yield put(
+    actions.signEximchainTransactionSucceeded({
+      transaction: serializedTransaction,
+      indexingHash
+    })
+  );
+}
+
+const signEximchainTransaction = signTransactionWrapper(signEximchainTransactionHandler);
+
 export function* signParitySignerTransactionHandler({
   tx,
   wallet
@@ -155,6 +169,7 @@ function* verifyTransaction({
   payload: { noVerify }
 }:
   | types.SignWeb3TransactionSucceededAction
+  | types.SignEximchainTransactionSucceededAction
   | types.SignLocalTransactionSucceededAction): SagaIterator {
   if (noVerify) {
     return;
@@ -180,7 +195,9 @@ function* handleTransactionRequest(action: types.SignTransactionRequestedAction)
 
   const signingHandler = walletType.isWeb3Wallet
     ? signWeb3Transaction
-    : walletType.isParitySignerWallet ? signParitySignerTransaction : signLocalTransaction;
+    : walletType.isEximchainWallet
+      ? signEximchainTransaction
+      : walletType.isParitySignerWallet ? signParitySignerTransaction : signLocalTransaction;
 
   return yield call(signingHandler, action);
 }
@@ -191,6 +208,7 @@ export const signing = [
     [
       types.TransactionSignActions.SIGN_LOCAL_TRANSACTION_SUCCEEDED,
       types.TransactionSignActions.SIGN_WEB3_TRANSACTION_SUCCEEDED
+      // types.TransactionSignActions.SIGN_EXIMCHAIN_TRANSACTION_SUCCEEDED
     ],
     verifyTransaction
   )

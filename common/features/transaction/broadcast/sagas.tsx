@@ -4,7 +4,7 @@ import { bufferToHex } from 'ethereumjs-util';
 
 import { computeIndexingHash } from 'libs/transaction';
 import { INode } from 'libs/nodes';
-import { Web3Wallet } from 'libs/wallet';
+import { Web3Wallet, EximchainWallet } from 'libs/wallet';
 import { NetworkConfig } from 'types/network';
 import { AppState } from 'features/reducers';
 import * as configNodesSelectors from 'features/config/nodes/selectors';
@@ -87,9 +87,12 @@ export function* getSerializedTxAndIndexingHash({
   type
 }: types.BroadcastRequestedAction): SagaIterator {
   const isWeb3Req = type === types.TransactionBroadcastActions.WEB3_TRANSACTION_REQUESTED;
+  const isEximchainReq = type === types.TransactionBroadcastActions.EXIMCHAIN_TRANSACTION_REQUESTED;
   const txSelector = isWeb3Req
     ? transactionSignSelectors.getWeb3Tx
-    : transactionSignSelectors.getSignedTx;
+    : isEximchainReq
+      ? transactionSignSelectors.getEximchainTx
+      : transactionSignSelectors.getSignedTx;
   const serializedTransaction: transactionSignReducer.StateSerializedTx = yield select(txSelector);
 
   if (!serializedTransaction) {
@@ -132,11 +135,32 @@ export const broadcastWeb3TransactionHandler = function*(tx: string): SagaIterat
 
 const broadcastWeb3Transaction = broadcastTransactionWrapper(broadcastWeb3TransactionHandler);
 
+export const broadcastEximchainTransactionHandler = function*(tx: string): SagaIterator {
+  const wallet: AppState['wallet']['inst'] = yield select(walletSelectors.getWalletInst);
+  if (!wallet || !(wallet instanceof EximchainWallet)) {
+    throw Error(`Cannot broadcast: Web3 wallet not found.`);
+  }
+
+  const nodeLib = yield select(configNodesSelectors.getNodeLib);
+  const txHash: string = yield apply(wallet, wallet.sendTransaction, [tx, nodeLib]);
+  return txHash;
+};
+
+const broadcastEximchainTransaction = broadcastTransactionWrapper(
+  broadcastEximchainTransactionHandler
+);
+
 export const broadcastSaga = [
   takeEvery(
     [types.TransactionBroadcastActions.WEB3_TRANSACTION_REQUESTED],
     broadcastWeb3Transaction
   ),
+
+  takeEvery(
+    [types.TransactionBroadcastActions.EXIMCHAIN_TRANSACTION_REQUESTED],
+    broadcastEximchainTransaction
+  ),
+
   takeEvery(
     [types.TransactionBroadcastActions.LOCAL_TRANSACTION_REQUESTED],
     broadcastLocalTransaction

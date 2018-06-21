@@ -521,7 +521,9 @@ export const signaturePending = (state: AppState) => {
 export const getSerializedTransaction = (state: AppState) =>
   walletSelectors.getWalletType(state).isWeb3Wallet
     ? transactionSignSelectors.getWeb3Tx(state)
-    : transactionSignSelectors.getSignedTx(state);
+    : walletSelectors.getWalletType(state).isEximchainWallet
+      ? transactionSignSelectors.getEximchainTx(state)
+      : transactionSignSelectors.getSignedTx(state);
 
 export const getParamsFromSerializedTx = (
   state: AppState

@@ -4,6 +4,7 @@ export interface TransactionBroadcastState {
 
 export enum TransactionBroadcastActions {
   WEB3_TRANSACTION_REQUESTED = 'BROADCAST_WEB3_TRANSACTION_REQUESTED',
+  EXIMCHAIN_TRANSACTION_REQUESTED = 'BROADCAST_EXIMCHAIN_TRANSACTION_REQUESTED',
   TRANSACTION_SUCCEEDED = 'BROADCAST_TRANSACTION_SUCCEEDED',
   LOCAL_TRANSACTION_REQUESTED = 'BROADCAST_LOCAL_TRANSACTION_REQUESTED',
   TRANSACTION_QUEUED = 'BROADCAST_TRANSACTION_QUEUED',
@@ -16,6 +17,10 @@ export interface BroadcastLocalTransactionRequestedAction {
 
 export interface BroadcastWeb3TransactionRequestedAction {
   type: TransactionBroadcastActions.WEB3_TRANSACTION_REQUESTED;
+}
+
+export interface BroadcastEximchainTransactionRequestedAction {
+  type: TransactionBroadcastActions.EXIMCHAIN_TRANSACTION_REQUESTED;
 }
 
 export interface BroadcastTransactionSucceededAction {
@@ -37,6 +42,7 @@ export type TransactionBroadcastAction =
   | BroadcastLocalTransactionRequestedAction
   | BroadcastTransactionSucceededAction
   | BroadcastWeb3TransactionRequestedAction
+  | BroadcastEximchainTransactionRequestedAction
   | BroadcastTransactionQueuedAction
   | BroadcastTransactionFailedAction;
 
@@ -49,6 +55,7 @@ export interface ITransactionStatus {
 
 export type BroadcastRequestedAction =
   | BroadcastWeb3TransactionRequestedAction
+  | BroadcastEximchainTransactionRequestedAction
   | BroadcastLocalTransactionRequestedAction;
 
 export interface ISerializedTxAndIndexingHash {

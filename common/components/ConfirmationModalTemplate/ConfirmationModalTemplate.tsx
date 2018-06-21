@@ -13,6 +13,7 @@ import './ConfirmationModalTemplate.scss';
 interface DispatchProps {
   broadcastLocalTransactionRequested: transactionBroadcastActions.TBroadcastLocalTransactionRequested;
   broadcastWeb3TransactionRequested: transactionBroadcastActions.TBroadcastWeb3TransactionRequested;
+  broadcastEximchainTransactionRequested: transactionBroadcastActions.TBroadcastEximchainTransactionRequested;
 }
 
 interface StateProps {
@@ -121,7 +122,9 @@ class ConfirmationModalTemplateClass extends React.Component<Props, State> {
     if (this.state.timeToRead < 1) {
       this.props.walletTypes.isWeb3Wallet
         ? this.props.broadcastWeb3TransactionRequested()
-        : this.props.broadcastLocalTransactionRequested();
+        : this.props.walletTypes.isEximchainWallet
+          ? this.props.broadcastEximchainTransactionRequested()
+          : this.props.broadcastLocalTransactionRequested();
     }
   };
 }
@@ -135,6 +138,9 @@ export const ConfirmationModalTemplate = connect(
   {
     broadcastLocalTransactionRequested:
       transactionBroadcastActions.broadcastLocalTransactionRequested,
-    broadcastWeb3TransactionRequested: transactionBroadcastActions.broadcastWeb3TransactionRequested
+    broadcastWeb3TransactionRequested:
+      transactionBroadcastActions.broadcastWeb3TransactionRequested,
+    broadcastEximchainTransactionRequested:
+      transactionBroadcastActions.broadcastEximchainTransactionRequested
   }
 )(ConfirmationModalTemplateClass);

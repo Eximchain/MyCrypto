@@ -17,7 +17,7 @@ app.use('/generate-key', (req, res) =>
 
 app.use('/execute-transaction', (req, res) => {
   const { from, to, amount, gasLimit, gasPrice, data } = req.body;
-  res.send({ txHash: 'i am a tx hash' });
+  res.send({ txHash: '0xda673c48dfed2d542ae949bf8e810eb7dfb0ccf87248c6fb5ea31da93acb74f2' });
 });
 
 app.use('/get-balance', (req, res) => {

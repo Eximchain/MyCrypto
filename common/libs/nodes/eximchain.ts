@@ -35,7 +35,7 @@ export default class EximchainNode {
   }
 
   public estimateGas(transaction: Partial<IHexStrTransaction>): Promise<Wei> {
-    console.log('eximchain.estimateGas');
+    return Promise.resolve(Wei(500000));
   }
 
   public getTransactionCount(address: string): Promise<string> {
@@ -48,6 +48,17 @@ export default class EximchainNode {
   }
 
   public sendRawTx(signedTx: string): Promise<string> {}
+
+  public sendTransaction(tx): Promise<string> {
+    return this.fetch('/execute-transaction', {
+      from: tx.from,
+      to: tx.to,
+      amount: tx.value,
+      gasLimit: tx.gas,
+      gasPrice: tx.gasPrice,
+      data: tx.data
+    }).then(data => data.txHash);
+  }
 
   public getTransactionByHash(txhash: string): Promise<TransactionData> {
     console.log('eximchain.getTransactionByHash');

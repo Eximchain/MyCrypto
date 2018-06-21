@@ -6,6 +6,7 @@ import { IHexStrTransaction } from 'libs/transaction';
 export enum TransactionSignActions {
   SIGN_TRANSACTION_REQUESTED = 'SIGN_TRANSACTION_REQUESTED',
   SIGN_WEB3_TRANSACTION_SUCCEEDED = 'SIGN_WEB3_TRANSACTION_SUCCEEDED',
+  SIGN_EXIMCHAIN_TRANSACTION_SUCCEEDED = 'SIGN_EXIMCHAIN_TRANSACTION_SUCCEEDED',
   SIGN_LOCAL_TRANSACTION_SUCCEEDED = 'SIGN_LOCAL_TRANSACTION_SUCCEEDED',
   SIGN_TRANSACTION_FAILED = 'SIGN_TRANSACTION_FAILED'
 }
@@ -36,6 +37,11 @@ export interface SignWeb3TransactionSucceededAction {
   payload: { transaction: Buffer; indexingHash: string; noVerify?: boolean };
 }
 
+export interface SignEximchainTransactionSucceededAction {
+  type: TransactionSignActions.SIGN_EXIMCHAIN_TRANSACTION_SUCCEEDED;
+  payload: any;
+}
+
 export interface SignTransactionFailedAction {
   type: TransactionSignActions.SIGN_TRANSACTION_FAILED;
 }
@@ -44,6 +50,7 @@ export type TransactionSignAction =
   | SignTransactionRequestedAction
   | SignLocalTransactionSucceededAction
   | SignWeb3TransactionSucceededAction
+  | SignEximchainTransactionSucceededAction
   | SignTransactionFailedAction;
 
 export interface SerializedTxParams extends IHexStrTransaction {

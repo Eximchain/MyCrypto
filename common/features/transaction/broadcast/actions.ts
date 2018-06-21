@@ -10,6 +10,11 @@ export const broadcastWeb3TransactionRequested = (): types.BroadcastWeb3Transact
   type: types.TransactionBroadcastActions.WEB3_TRANSACTION_REQUESTED
 });
 
+export type TBroadcastEximchainTransactionRequested = typeof broadcastEximchainTransactionRequested;
+export const broadcastEximchainTransactionRequested = (): types.BroadcastEximchainTransactionRequestedAction => ({
+  type: types.TransactionBroadcastActions.EXIMCHAIN_TRANSACTION_REQUESTED
+});
+
 export type TBroadcastTransactionSucceeded = typeof broadcastTransactionSucceeded;
 export const broadcastTransactionSucceeded = (
   payload: types.BroadcastTransactionSucceededAction['payload']
