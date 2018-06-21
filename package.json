@@ -205,8 +205,7 @@
     "prettier:diff":
       "prettier --write --config ./.prettierrc --list-different \"common/**/*.ts\" \"common/**/*.tsx\"",
     "prepush": "npm run tslint && npm run tscheck",
-    "update:tokens": "ts-node scripts/update-tokens",
-    "postinstall": "electron-rebuild --force"
+    "update:tokens": "ts-node scripts/update-tokens"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
