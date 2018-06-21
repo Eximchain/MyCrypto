@@ -22,7 +22,7 @@ app.use('/execute-transaction', (req, res) => {
 
 app.use('/get-balance', (req, res) => {
   const { address } = req.body;
-  res.send({ balance: '100000000000000000000' });
+  res.send({ balance: '188000000000000000000' });
 });
 
 app.use('/get-current-block', (req, res) => {

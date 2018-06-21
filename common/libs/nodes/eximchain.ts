@@ -3,8 +3,8 @@ import { Wei } from 'libs/units';
 export default class EximchainNode {
   private endpoint: string;
 
-  constructor(endpoint: string) {
-    this.endpoint = endpoint;
+  constructor() {
+    this.endpoint = 'http://localhost:7000';
   }
 
   public getNetVersion(): Promise<string> {
@@ -69,7 +69,7 @@ export default class EximchainNode {
 }
 
 export async function setupEximchainNode() {
-  const lib = new EximchainNode('http://localhost:7000');
+  const lib = new EximchainNode();
   const key = await lib.getVaultKey();
 
   if (!key) {

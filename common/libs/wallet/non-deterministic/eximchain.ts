@@ -2,11 +2,9 @@ import { IFullWallet } from '../IWallet';
 
 export default class EximchainWallet implements IFullWallet {
   private address: string;
-  private network: string;
 
-  constructor(address: string, network: string) {
+  constructor(address: string) {
     this.address = address;
-    this.network = network;
   }
 
   public getAddressString(): string {
