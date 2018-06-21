@@ -43,10 +43,8 @@ export default class EximchainNode {
     return Promise.resolve('0x121');
   }
 
-  // todo
   public getCurrentBlock(): Promise<string> {
-    console.log('eximchain.getCurrentBlock');
-    return Promise.resolve('100000000000');
+    return this.fetch('/get-current-block').then(data => data.block);
   }
 
   public sendRawTx(signedTx: string): Promise<string> {}
