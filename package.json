@@ -166,7 +166,6 @@
     "freezer:validate": "npm run freezer -- --validate",
     "db": "nodemon ./db",
     "build": "webpack --mode=production --config webpack_config/webpack.prod.js",
-    "prebuild": "check-node-version --package",
     "build:downloadable": "webpack --mode=production --config webpack_config/webpack.html.js",
     "prebuild:downloadable": "check-node-version --package",
     "build:electron":
