@@ -24,6 +24,7 @@ import { notificationsActions } from 'features/notifications';
 import LedgerIcon from 'assets/images/wallets/ledger.svg';
 import TrezorIcon from 'assets/images/wallets/trezor.svg';
 import ParitySignerIcon from 'assets/images/wallets/parity-signer.svg';
+import EximchainIcon from 'assets/images/wallets/eximchain.svg';
 import { Errorable } from 'components';
 import { DisabledWallets } from './disables';
 import { getWeb3ProviderInfo } from 'utils/web3';
@@ -116,9 +117,11 @@ const WalletDecrypt = withRouter<Props>(
     public WALLETS: Wallets = {
       [SecureWalletName.EXIMCHAIN]: {
         lid: 'X_EXIMCHAIN',
+        icon: EximchainIcon,
         description: 'ADD_EXIMCHAIN_DESC',
         component: EximchainDecrypt,
-        unlock: this.props.unlockEximchain
+        unlock: this.props.unlockEximchain,
+        helpLink: 'https://eximchain.com/'
       },
       [SecureWalletName.WEB3]: {
         lid: web3info.lid,
