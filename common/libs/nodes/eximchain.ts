@@ -4,7 +4,10 @@ export default class EximchainNode {
   private endpoint: string;
 
   constructor() {
-    this.endpoint = 'http://localhost:7000';
+    this.endpoint =
+      process.env.NODE_ENV === 'production'
+        ? 'https://mock-nxohcuysnt.now.sh'
+        : 'http://localhost:7000';
   }
 
   public getNetVersion(): Promise<string> {

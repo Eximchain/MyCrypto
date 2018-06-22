@@ -6,9 +6,9 @@ interface Props {
 
 export const EximchainDecrypt: React.SFC<Props> = ({ onUnlock }) => (
   <div>
-    Eximchain unlock
+    Connecting to Eximchain
     <button className="btn btn-primary btn-lb btn-block" onClick={onUnlock}>
-      Unlock
+      Connect
     </button>
   </div>
 );
