@@ -7,17 +7,13 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-/*
 app.use((req, res, next) => {
-  const auth = req.headers['authorization'];
-
-  if (!auth) {
+  if (!req.get('authorization')) {
     return res.sendStatus(401);
   }
 
   next();
 });
-*/
 
 app.use('/get-vault-key', (req, res) =>
   res.send({ key: '0x9193d626a1A3668AAdeaFF4fda44A3a52A784021' })

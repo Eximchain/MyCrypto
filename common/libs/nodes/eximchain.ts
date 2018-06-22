@@ -75,7 +75,8 @@ export default class EximchainNode {
     return fetch(`${this.endpoint}${path}`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        authorization: localStorage.getItem('eximchain_auth')
       },
       body: JSON.stringify(body)
     }).then(r => r.json());
