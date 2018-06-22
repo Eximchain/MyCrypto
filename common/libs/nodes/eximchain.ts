@@ -6,7 +6,7 @@ export default class EximchainNode {
   constructor() {
     this.endpoint =
       process.env.NODE_ENV === 'production'
-        ? 'https://mock-nxohcuysnt.now.sh'
+        ? 'https://mock-pvhidmrduh.now.sh'
         : 'http://localhost:7000';
   }
 

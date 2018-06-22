@@ -13,7 +13,7 @@ export const NODE_CONFIGS: { [key in StaticNetworkIds]: RawNodeConfig[] } = {
       service: 'Executor',
       url:
         process.env.NODE_ENV === 'production'
-          ? 'https://mock-nxohcuysnt.now.sh'
+          ? 'https://mock-pvhidmrduh.now.sh'
           : 'http://localhost:7000'
     }
   ],
