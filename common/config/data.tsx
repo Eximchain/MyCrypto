@@ -23,9 +23,7 @@ export const APP_ALPHA_EXPIRATION = 1532476800000;
 // Type can be primary, warning, danger, success, info, or blank for grey.
 // Message must be a JSX element if you want to use HTML.
 export const ANNOUNCEMENT_TYPE = '';
-export const ANNOUNCEMENT_MESSAGE = (
-  <React.Fragment>{translate('ANNOUNCEMENT_MESSAGE')}</React.Fragment>
-);
+export const ANNOUNCEMENT_MESSAGE = null;
 
 const etherScan = 'https://etherscan.io';
 const blockChainInfo = 'https://blockchain.info';
