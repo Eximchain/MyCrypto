@@ -120,9 +120,9 @@ export const NODE_CONFIGS: { [key in StaticNetworkIds]: RawNodeConfig[] } = {
   POA: [
     {
       name: makeNodeName('POA', 'core'),
-      type: 'rpc',
-      service: 'poa.network',
-      url: 'https://core.poa.network'
+      type: 'infura',
+      service: 'poa.infura.io',
+      url: 'https://poa.infura.io'
     }
   ],
 
@@ -180,6 +180,15 @@ export const NODE_CONFIGS: { [key in StaticNetworkIds]: RawNodeConfig[] } = {
     }
   ],
 
+  RSK: [
+    {
+      name: makeNodeName('RSK', 'rsk_mainnet'),
+      type: 'rpc',
+      service: 'mycrypto.rsk.co',
+      url: 'https://mycrypto.rsk.co/'
+    }
+  ],
+
   RSK_TESTNET: [
     {
       name: makeNodeName('RSK_TESTNET', 'rsk_testnet'),
@@ -204,6 +213,15 @@ export const NODE_CONFIGS: { [key in StaticNetworkIds]: RawNodeConfig[] } = {
       type: 'rpc',
       service: 'eos-classic.io',
       url: 'https://node.eos-classic.io/'
+    }
+  ],
+
+  ESN: [
+    {
+      name: makeNodeName('ESN', 'esn'),
+      type: 'rpc',
+      service: 'ethersocial.org',
+      url: 'https://api.esn.gonspool.com'
     }
   ]
 };

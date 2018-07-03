@@ -101,6 +101,7 @@ class ConfirmationModalTemplateClass extends React.Component<Props, State> {
         buttons={buttons}
         handleClose={onClose}
         disableButtons={transactionBroadcasting}
+        hideButtons={transactionBroadcasting}
         isOpen={isOpen}
       >
         {transactionBroadcasting ? (

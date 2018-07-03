@@ -2,7 +2,7 @@ import { getValues } from '../utils/helpers';
 import packageJson from '../../package.json';
 import { GasPriceSetting } from 'types/network';
 import { makeExplorer } from 'utils/helpers';
-// import NewTabLink from 'components/ui/NewTabLink';
+import translate from 'translations';
 
 export const languages = require('./languages.json');
 export const discordURL = 'https://discord.gg/VSaTXEA';
@@ -23,6 +23,9 @@ export const APP_ALPHA_EXPIRATION = 1532476800000;
 // Type can be primary, warning, danger, success, info, or blank for grey.
 // Message must be a JSX element if you want to use HTML.
 export const ANNOUNCEMENT_TYPE = '';
+export const ANNOUNCEMENT_MESSAGE = (
+  <React.Fragment>{translate('ANNOUNCEMENT_MESSAGE')}</React.Fragment>
+);
 
 const etherScan = 'https://etherscan.io';
 const blockChainInfo = 'https://blockchain.info';
@@ -98,3 +101,8 @@ export const walletNames = getValues(
 );
 
 export type WalletName = SecureWalletName | InsecureWalletName | MiscWalletName;
+
+export enum Theme {
+  DARK = 'dark',
+  LIGHT = 'light'
+}
