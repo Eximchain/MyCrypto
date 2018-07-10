@@ -1,3 +1,5 @@
+import { TAB } from 'components/Header/components/constants';
+
 type StaticNetworkIds =
   | 'EXIMCHAIN'
   | 'ETH'
@@ -71,6 +73,7 @@ interface StaticNetworkConfig {
   isTestnet?: boolean;
   gasPriceSettings: GasPriceSetting;
   shouldEstimateGasPrice?: boolean;
+  unsupportedTabs?: TAB[];
 }
 
 interface CustomNetworkConfig {
@@ -81,6 +84,7 @@ interface CustomNetworkConfig {
   unit: string;
   chainId: number;
   dPathFormats: DPathFormats | null;
+  unsupportedTabs?: TAB[];
 }
 
 type NetworkConfig = CustomNetworkConfig | StaticNetworkConfig;
