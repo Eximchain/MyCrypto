@@ -154,16 +154,6 @@ const WalletSuggestions: React.SFC<WalletSuggestionsProps> = ({ showGenerate }) 
       <h1 className="WalletTypes-title">{translate('GENERATE_WALLET_TITLE')}</h1>
       <p className="WalletTypes-subtitle">{translate('GENERATE_WALLET_SUGGESTIONS')}</p>
 
-      <div className="eximchain-new-address">
-        <div>Generate new address</div>
-        <div>
-          <input type="text" placeholder="Generate new address" />
-        </div>
-        <div>
-          <button>Generate</button>
-        </div>
-      </div>
-
       <div className="WalletTypes-suggestions">
         {suggestions.map(sug => (
           <div className={`WalletSuggestion is-${sug.type}`}>
