@@ -353,13 +353,14 @@ export function* unlockEximchain(): SagaIterator {
       throw new Error('Eximchain node config not found');
     }
 
-    const key = yield apply(nodeLib, nodeLib.getVaultKey);
+    const accounts = yield apply(nodeLib, nodeLib.getAccounts);
+    const address = accounts[0];
 
-    if (!key) {
-      throw new Error('No key from eximchain');
+    if (!address) {
+      throw new Error('Not accounts found in Eximchain');
     }
 
-    const wallet = new EximchainWallet(key);
+    const wallet = new EximchainWallet(address);
     yield put(setWallet(wallet));
   } catch (err) {
     console.error(err);
