@@ -13,7 +13,7 @@ export default class EximchainNode extends RPCNode {
   public requests: EximchainRequests;
 
   constructor() {
-    const endpoint = 'http://localhost:7545';
+    const endpoint = 'http://localhost:8545';
     // process.env.NODE_ENV === 'production'
     //   ? 'https://mock-pvhidmrduh.now.sh'
     //   : 'http://localhost:7000';
