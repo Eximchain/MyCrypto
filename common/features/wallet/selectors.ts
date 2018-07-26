@@ -3,6 +3,7 @@ import { WalletConfig } from 'libs/wallet/config';
 import { IWallet } from 'libs/wallet/IWallet';
 import { LedgerWallet } from 'libs/wallet/deterministic/ledger';
 import { TrezorWallet } from 'libs/wallet/deterministic/trezor';
+import { SafeTWallet } from 'libs/wallet/deterministic/safe-t';
 import Web3Wallet from 'libs/wallet/non-deterministic/web3';
 import EximchainWallet from 'libs/wallet/non-deterministic/eximchain';
 import ParitySignerWallet from 'libs/wallet/non-deterministic/parity';
@@ -35,8 +36,9 @@ export const getWalletType = (state: AppState): IWalletType => {
   const isEximchainWallet = wallet instanceof EximchainWallet;
   const isLedgerWallet = wallet instanceof LedgerWallet;
   const isTrezorWallet = wallet instanceof TrezorWallet;
+  const isSafeTWallet = wallet instanceof SafeTWallet;
   const isParitySignerWallet = wallet instanceof ParitySignerWallet;
-  const isHardwareWallet = isLedgerWallet || isTrezorWallet;
+  const isHardwareWallet = isLedgerWallet || isTrezorWallet || isSafeTWallet;
   return { isWeb3Wallet, isHardwareWallet, isParitySignerWallet, isEximchainWallet };
 };
 
