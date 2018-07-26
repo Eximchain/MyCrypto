@@ -12,9 +12,9 @@ const app = express();
 
 const port = config.port;
 webpackConfig.entry.client = [
-  // 'react-hot-loader/patch',
-  // 'webpack-hot-middleware/client?reload=true',
-  // 'webpack/hot/only-dev-server',
+  'react-hot-loader/patch',
+  'webpack-hot-middleware/client?reload=true',
+  'webpack/hot/only-dev-server',
   webpackConfig.entry.client
 ];
 
@@ -43,11 +43,11 @@ const devMiddleWare = require('webpack-dev-middleware')(compiler, {
   }
 });
 app.use(devMiddleWare);
-// app.use(
-//   require('webpack-hot-middleware')(compiler, {
-//     log: false
-//   })
-// );
+app.use(
+  require('webpack-hot-middleware')(compiler, {
+    log: false
+  })
+);
 
 const mfs = devMiddleWare.fileSystem;
 const file = path.join(webpackConfig.output.path, 'index.html');

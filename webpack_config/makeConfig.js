@@ -167,9 +167,9 @@ module.exports = function(opts = {}) {
         site: config.twitter.creator,
         creator: config.twitter.creator
       },
-      metaCsp: options.isProduction 
+      metaCsp: options.isProduction
         ? "default-src 'none'; script-src 'self'; worker-src 'self' blob:; style-src 'self' 'unsafe-inline'; manifest-src 'self'; font-src 'self'; img-src 'self' data: https://shapeshift.io; connect-src *;"
-        :  ""
+        : ''
     }),
 
     new CopyWebpackPlugin([
@@ -235,14 +235,14 @@ module.exports = function(opts = {}) {
       //     vendor: [...config.vendorModules, 'babel-polyfill', 'bootstrap-sass', 'font-awesome']
       //   }
       // }),
-      // new HardSourceWebpackPlugin({
-      //   environmentHash: {
-      //     root: process.cwd(),
-      //     directories: ['common/webpack_config'],
-      //     files: ['package.json']
-      //   }
-      // }),
-      // new webpack.HotModuleReplacementPlugin(),
+      new HardSourceWebpackPlugin({
+        environmentHash: {
+          root: process.cwd(),
+          directories: ['common/webpack_config'],
+          files: ['package.json']
+        }
+      }),
+      new webpack.HotModuleReplacementPlugin(),
       new FriendlyErrorsPlugin()
     );
   }

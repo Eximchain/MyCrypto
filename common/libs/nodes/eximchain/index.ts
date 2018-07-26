@@ -84,5 +84,8 @@ export async function setupEximchainNode() {
     throw new Error('Not accounts found in Eximchain');
   }
 
-  return { lib, chainId: 8888888 };
+  return {
+    lib,
+    chainId: 1235813
+  };
 }
