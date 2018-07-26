@@ -13,10 +13,7 @@ export default class EximchainNode extends RPCNode {
   public requests: EximchainRequests;
 
   constructor() {
-    const endpoint = 'http://localhost:8545';
-    // process.env.NODE_ENV === 'production'
-    //   ? 'https://mock-pvhidmrduh.now.sh'
-    //   : 'http://localhost:7000';
+    const endpoint = 'http://localhost:8080/rpc';
 
     super(endpoint);
     this.client = new EximchainClient(endpoint, {
@@ -52,28 +49,6 @@ export default class EximchainNode extends RPCNode {
       .then(isValidGetAccounts)
       .then(({ result }) => result);
   }
-
-  // public sendTransaction(tx): Promise<string> {
-  //   return this.fetch('/execute-transaction', {
-  //     from: tx.from,
-  //     to: tx.to,
-  //     amount: tx.value,
-  //     gasLimit: tx.gas,
-  //     gasPrice: tx.gasPrice,
-  //     data: tx.data
-  //   }).then(data => data.txHash);
-  // }
-
-  // private fetch(path: string, body): Promise<any> {
-  //   return fetch(`${this.endpoint}${path}`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       authorization: localStorage.getItem('eximchain_auth')
-  //     },
-  //     body: JSON.stringify(body)
-  //   }).then(r => r.json());
-  // }
 }
 
 export async function setupEximchainNode() {
@@ -84,8 +59,5 @@ export async function setupEximchainNode() {
     throw new Error('Not accounts found in Eximchain');
   }
 
-  return {
-    lib,
-    chainId: 1235813
-  };
+  return { lib, chainId: 1235813 };
 }
