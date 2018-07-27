@@ -17,7 +17,7 @@ export default class EximchainNode extends RPCNode {
 
     super(endpoint);
     this.client = new EximchainClient(endpoint, {
-      // Authorization: localStorage.getItem('eximchain_auth') || ''
+      Authorization: localStorage.getItem('eximchain_auth') || ''
     });
     this.requests = new EximchainRequests();
   }

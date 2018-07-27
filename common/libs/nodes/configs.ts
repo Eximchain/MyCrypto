@@ -11,10 +11,7 @@ export const NODE_CONFIGS: { [key in StaticNetworkIds]: RawNodeConfig[] } = {
       name: makeNodeName('EXIMCHAIN', 'executor'),
       type: 'eximchain',
       service: 'Executor',
-      url:
-        process.env.NODE_ENV === 'production'
-          ? 'https://mock-pvhidmrduh.now.sh'
-          : 'http://localhost:7000'
+      url: 'http://localhost:8080/rpc'
     }
   ],
 

@@ -207,8 +207,8 @@ export const signing = [
   takeEvery(
     [
       types.TransactionSignActions.SIGN_LOCAL_TRANSACTION_SUCCEEDED,
-      types.TransactionSignActions.SIGN_WEB3_TRANSACTION_SUCCEEDED
-      // types.TransactionSignActions.SIGN_EXIMCHAIN_TRANSACTION_SUCCEEDED
+      types.TransactionSignActions.SIGN_WEB3_TRANSACTION_SUCCEEDED,
+      types.TransactionSignActions.SIGN_EXIMCHAIN_TRANSACTION_SUCCEEDED
     ],
     verifyTransaction
   )

@@ -18,18 +18,16 @@ export interface SendTransactionRequest extends RPCRequestBase {
   ];
 }
 
-export interface SignMessageRequest extends RPCRequestBase {
-  method: 'personal_sign';
-  params: [MESSAGE_HEX, ADDRESS];
-}
-
 export interface GetAccountsRequest extends RPCRequestBase {
   method: 'eth_accounts';
 }
 
-type TWeb3ProviderCallback = (error: string, result: JsonRpcResponse | JsonRpcResponse[]) => any;
-type TSendAsync = (request: RPCRequest | any, callback: TWeb3ProviderCallback) => void;
+type TEximchainProviderCallback = (
+  error: string,
+  result: JsonRpcResponse | JsonRpcResponse[]
+) => any;
+type TSendAsync = (request: RPCRequest | any, callback: TEximchainProviderCallback) => void;
 
-export interface IWeb3Provider {
+export interface IEximchainProvider {
   sendAsync: TSendAsync;
 }
