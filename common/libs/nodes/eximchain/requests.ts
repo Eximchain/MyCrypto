@@ -10,13 +10,6 @@ export default class EximchainRequests extends RPCRequests {
     };
   }
 
-  public signMessage(msgHex: string, fromAddr: string): SignMessageRequest {
-    return {
-      method: 'personal_sign',
-      params: [msgHex, fromAddr]
-    };
-  }
-
   public getAccounts(): GetAccountsRequest {
     return {
       method: 'eth_accounts'
