@@ -26,7 +26,7 @@ import rehydrateAddressBook from './rehydrateAddressBook';
 
 export default function configureStore() {
   const logger = createLogger({
-    // collapsed: true
+    collapsed: true
   });
   const sagaMiddleware = createSagaMiddleware();
   let middleware;

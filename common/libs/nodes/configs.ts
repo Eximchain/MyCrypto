@@ -11,7 +11,7 @@ export const NODE_CONFIGS: { [key in StaticNetworkIds]: RawNodeConfig[] } = {
       name: makeNodeName('EXIMCHAIN', 'executor'),
       type: 'eximchain',
       service: 'Executor',
-      url: 'http://localhost:8080/rpc'
+      url: 'http://54.144.93.108:8080/rpc'
     }
   ],
 
