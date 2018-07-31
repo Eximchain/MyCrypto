@@ -162,7 +162,7 @@
     "freezer": "webpack --config=./webpack_config/webpack.freezer.js && node ./dist/freezer.js",
     "freezer:validate": "npm run freezer -- --validate",
     "db": "nodemon ./db",
-    "build": "webpack --mode=production --config webpack_config/webpack.prod.js && cp _redirects dist/prod",
+    "build": "webpack --mode=production --config webpack_config/webpack.prod.js",
     "build:downloadable": "webpack --mode=production --config webpack_config/webpack.html.js",
     "prebuild:downloadable": "check-node-version --package",
     "build:electron": "webpack --config webpack_config/webpack.electron-prod.js && node webpack_config/buildElectron.js",
