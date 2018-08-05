@@ -48,12 +48,12 @@ export const STATIC_NETWORKS_INITIAL_STATE: StaticNetworksState = {
     isCustom: false,
     color: '#3498db',
     blockExplorer: makeExplorer({
-      name: 'Etherscan',
-      origin: 'https://etherscan.io'
+      name: 'Eximchain',
+      origin: 'http://168.61.47.117:5000/'
     }),
     tokenExplorer: {
-      name: ethPlorer,
-      address: ETHTokenExplorer
+      name: 'http://168.61.47.117:5000/',
+      address: address => `http://168.61.47.117:5000/account/${address}`
     },
     tokens: [],
     contracts: [],

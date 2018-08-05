@@ -17,19 +17,31 @@ interface State {
   auth: string;
 }
 
-const AUTH_KEY = 'eximchain_auth';
+const EXIMCHAIN_AUTH = 'eximchain_auth';
+const EXIMCHAIN_ENDPOINT = 'eximchain_endpoint';
 
 class EximchainDecryptClass extends React.Component<Props> {
   public state: State = {
-    auth: localStorage.getItem(AUTH_KEY) || ''
+    auth: localStorage.getItem(EXIMCHAIN_AUTH) || '',
+    endpoint: localStorage.getItem(EXIMCHAIN_ENDPOINT) || ''
   };
 
   public render() {
     return (
       <div>
         <Input
+          placeholder="Enter your executor ip address"
+          type="text"
+          name="endpoint"
+          onChange={this.handleChange}
+          value={this.state.endpoint}
+          isValid={this.isEndpointValid()}
+        />
+
+        <Input
           placeholder="Enter your eximchain key"
           type="text"
+          name="auth"
           onChange={this.handleChange}
           value={this.state.auth}
           isValid={this.isAuthValid()}
@@ -45,18 +57,27 @@ class EximchainDecryptClass extends React.Component<Props> {
     return this.state.auth.length > 0;
   };
 
+  private isEndpointValid = (): boolean => {
+    return this.state.endpoint.length > 0;
+  };
+
   private handleChange = e => {
-    this.setState({ auth: e.target.value });
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   private handleClick = () => {
-    const { auth } = this.state;
+    const { auth, endpoint } = this.state;
+
+    if (!this.isEndpointValid()) {
+      return this.props.showNotification('warning', 'Please enter your executor ip address');
+    }
 
     if (!this.isAuthValid()) {
       return this.props.showNotification('warning', 'Please enter your eximchain key');
     }
 
-    localStorage.setItem(AUTH_KEY, auth);
+    localStorage.setItem(EXIMCHAIN_AUTH, auth);
+    localStorage.setItem(EXIMCHAIN_ENDPOINT, endpoint);
 
     this.props.onUnlock();
   };

@@ -13,7 +13,7 @@ export default class EximchainNode extends RPCNode {
   public requests: EximchainRequests;
 
   constructor() {
-    const endpoint = 'http://54.144.93.108:8080/rpc';
+    const endpoint = `http://${localStorage.getItem('eximchain_endpoint')}:8080/rpc`;
 
     super(endpoint);
     this.client = new EximchainClient(endpoint, {
