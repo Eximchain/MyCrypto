@@ -248,24 +248,24 @@ const WalletDecrypt = withRouter<Props>(
       }
 
       const isInsecure = INSECURE_WALLETS.includes(selectedWalletKey);
-      if (isInsecure && !isInsecureOverridden && !process.env.BUILD_DOWNLOADABLE) {
-        return (
-          <div className="WalletDecrypt-decrypt">
-            <InsecureWalletWarning
-              walletType={translateRaw(selectedWallet.lid)}
-              onCancel={this.clearWalletChoice}
-            />
-            {process.env.NODE_ENV !== 'production' && (
-              <button
-                className="WalletDecrypt-decrypt-override"
-                onClick={this.overrideInsecureWarning}
-              >
-                I'm a dev, override this
-              </button>
-            )}
-          </div>
-        );
-      }
+      // if (isInsecure && !isInsecureOverridden && !process.env.BUILD_DOWNLOADABLE) {
+      //   return (
+      //     <div className="WalletDecrypt-decrypt">
+      //       <InsecureWalletWarning
+      //         walletType={translateRaw(selectedWallet.lid)}
+      //         onCancel={this.clearWalletChoice}
+      //       />
+      //       {process.env.NODE_ENV !== 'production' && (
+      //         <button
+      //           className="WalletDecrypt-decrypt-override"
+      //           onClick={this.overrideInsecureWarning}
+      //         >
+      //           I'm a dev, override this
+      //         </button>
+      //       )}
+      //     </div>
+      //   );
+      // }
 
       return (
         <div className="WalletDecrypt-decrypt">
