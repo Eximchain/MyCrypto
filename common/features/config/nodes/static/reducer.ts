@@ -14,11 +14,19 @@ export function staticNodesReducer(
 ) {
   switch (action.type) {
     case CONFIG_NODES_STATIC.WEB3_SET:
+    case CONFIG_NODES_STATIC.EXIMCHAIN_SET:
       return { ...state, [action.payload.id]: action.payload.config };
-    case CONFIG_NODES_STATIC.WEB3_UNSET:
+
+    case CONFIG_NODES_STATIC.WEB3_UNSET: {
       const stateCopy = { ...state };
       Reflect.deleteProperty(stateCopy, 'web3');
       return stateCopy;
+    }
+    case CONFIG_NODES_STATIC.EXIMCHAIN_UNSET: {
+      const stateCopy = { ...state };
+      Reflect.deleteProperty(stateCopy, 'eximchain');
+      return stateCopy;
+    }
     default:
       return state;
   }

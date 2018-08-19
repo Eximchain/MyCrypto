@@ -3,11 +3,13 @@ import * as types from './types';
 
 export type StateSerializedTx =
   | types.TransactionSignState['local']['signedTransaction']
-  | types.TransactionSignState['web3']['transaction'];
+  | types.TransactionSignState['web3']['transaction']
+  | types.TransactionSignState['eximchain']['transaction'];
 
 export const SIGN_INITIAL_STATE: types.TransactionSignState = {
   local: { signedTransaction: null },
   web3: { transaction: null },
+  eximchain: { transaction: null },
   indexingHash: null,
   pending: false
 };
@@ -25,7 +27,8 @@ const signLocalTransactionSucceeded = (
   pending: false,
 
   local: { signedTransaction: payload.signedTransaction },
-  web3: { transaction: null }
+  web3: { transaction: null },
+  eximchain: { transaction: null }
 });
 
 const signWeb3TranscationSucceeded = (
@@ -36,7 +39,20 @@ const signWeb3TranscationSucceeded = (
   pending: false,
 
   local: { signedTransaction: null },
-  web3: { transaction: payload.transaction }
+  web3: { transaction: payload.transaction },
+  eximchain: { transaction: null }
+});
+
+const signEximchainTranscationSucceeded = (
+  _: types.TransactionSignState,
+  { payload }: types.SignEximchainTransactionSucceededAction
+): types.TransactionSignState => ({
+  indexingHash: payload.indexingHash,
+  pending: false,
+
+  local: { signedTransaction: null },
+  web3: { transaction: null },
+  eximchain: { transaction: payload.transaction }
 });
 
 const signTransactionFailed = () => SIGN_INITIAL_STATE;
@@ -54,6 +70,8 @@ export function signReducer(
       return signLocalTransactionSucceeded(state, action);
     case types.TransactionSignActions.SIGN_WEB3_TRANSACTION_SUCCEEDED:
       return signWeb3TranscationSucceeded(state, action);
+    case types.TransactionSignActions.SIGN_EXIMCHAIN_TRANSACTION_SUCCEEDED:
+      return signEximchainTranscationSucceeded(state, action);
     case types.TransactionSignActions.SIGN_TRANSACTION_FAILED:
       return signTransactionFailed();
     case transactionTypes.TransactionActions.RESET_SUCCESSFUL:

@@ -1,9 +1,7 @@
-import React from 'react'; // For ANNOUNCEMENT_MESSAGE jsx
 import { getValues } from '../utils/helpers';
 import packageJson from '../../package.json';
 import { GasPriceSetting } from 'types/network';
 import { makeExplorer } from 'utils/helpers';
-import translate from 'translations';
 
 export const languages = require('./languages.json');
 export const discordURL = 'https://discord.gg/VSaTXEA';
@@ -16,9 +14,7 @@ export const N_FACTOR = 8192;
 // Type can be primary, warning, danger, success, info, or blank for grey.
 // Message must be a JSX element if you want to use HTML.
 export const ANNOUNCEMENT_TYPE = '';
-export const ANNOUNCEMENT_MESSAGE = (
-  <React.Fragment>{translate('ANNOUNCEMENT_MESSAGE')}</React.Fragment>
-);
+export const ANNOUNCEMENT_MESSAGE = null;
 
 const etherScan = 'https://etherscan.io';
 const blockChainInfo = 'https://blockchain.info';
@@ -73,7 +69,8 @@ export enum SecureWalletName {
   LEDGER_NANO_S = 'ledgerNanoS',
   TREZOR = 'trezor',
   SAFE_T = 'safeTmini',
-  PARITY_SIGNER = 'paritySigner'
+  PARITY_SIGNER = 'paritySigner',
+  EXIMCHAIN = 'eximchain'
 }
 
 export enum HardwareWalletName {

@@ -415,6 +415,7 @@ describe('transaction: Reducers', () => {
 
   describe('Sign', () => {
     const SIGN_INITIAL_STATE: transactionSignTypes.TransactionSignState = {
+      eximchain: { transaction: null },
       local: { signedTransaction: null },
       web3: { transaction: null },
       indexingHash: null,

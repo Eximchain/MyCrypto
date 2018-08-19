@@ -28,3 +28,11 @@ export const signWeb3TransactionSucceeded = (
   type: types.TransactionSignActions.SIGN_WEB3_TRANSACTION_SUCCEEDED,
   payload
 });
+
+export type TSignEximchainTransactionSucceeded = typeof signEximchainTransactionSucceeded;
+export const signEximchainTransactionSucceeded = (
+  payload: types.SignEximchainTransactionSucceededAction['payload']
+): types.SignEximchainTransactionSucceededAction => ({
+  type: types.TransactionSignActions.SIGN_EXIMCHAIN_TRANSACTION_SUCCEEDED,
+  payload
+});

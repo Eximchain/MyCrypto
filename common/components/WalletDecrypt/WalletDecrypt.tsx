@@ -25,6 +25,7 @@ import LedgerIcon from 'assets/images/wallets/ledger.svg';
 import TrezorIcon from 'assets/images/wallets/trezor.svg';
 import SafeTIcon from 'assets/images/wallets/safe-t.svg';
 import ParitySignerIcon from 'assets/images/wallets/parity-signer.svg';
+import EximchainIcon from 'assets/images/wallets/eximchain.svg';
 import { Errorable } from 'components';
 import { DisabledWallets } from './disables';
 import { getWeb3ProviderInfo } from 'utils/web3';
@@ -40,7 +41,8 @@ import {
   Web3Decrypt,
   WalletButton,
   ParitySignerDecrypt,
-  InsecureWalletWarning
+  InsecureWalletWarning,
+  EximchainDecrypt
 } from './components';
 import './WalletDecrypt.scss';
 
@@ -55,6 +57,7 @@ interface DispatchProps {
   unlockMnemonic: walletActions.TUnlockMnemonic;
   unlockPrivateKey: walletActions.TUnlockPrivateKey;
   unlockWeb3: walletActions.TUnlockWeb3;
+  unlockEximchain: walletActions.TUnlockEximchain;
   setWallet: walletActions.TSetWallet;
   resetTransactionRequested: transactionFieldsActions.TResetTransactionRequested;
   showNotification: notificationsActions.TShowNotification;
@@ -114,6 +117,15 @@ const WalletDecrypt = withRouter<Props>(
     // https://github.com/Microsoft/TypeScript/issues/13042
     // index signature should become [key: Wallets] (from config) once typescript bug is fixed
     public WALLETS: Wallets = {
+      [SecureWalletName.EXIMCHAIN]: {
+        lid: 'X_EXIMCHAIN',
+        icon: EximchainIcon,
+        description: 'ADD_EXIMCHAIN_DESC',
+        component: EximchainDecrypt,
+        initialParams: {},
+        unlock: this.props.unlockEximchain,
+        helpLink: 'https://eximchain.com/'
+      },
       [SecureWalletName.WEB3]: {
         lid: web3info.lid,
         icon: web3info.icon,
@@ -237,24 +249,24 @@ const WalletDecrypt = withRouter<Props>(
       }
 
       const isInsecure = INSECURE_WALLETS.includes(selectedWalletKey);
-      if (isInsecure && !isInsecureOverridden && !process.env.BUILD_DOWNLOADABLE) {
-        return (
-          <div className="WalletDecrypt-decrypt">
-            <InsecureWalletWarning
-              walletType={translateRaw(selectedWallet.lid)}
-              onCancel={this.clearWalletChoice}
-            />
-            {process.env.NODE_ENV !== 'production' && (
-              <button
-                className="WalletDecrypt-decrypt-override"
-                onClick={this.overrideInsecureWarning}
-              >
-                I'm a dev, override this
-              </button>
-            )}
-          </div>
-        );
-      }
+      // if (isInsecure && !isInsecureOverridden && !process.env.BUILD_DOWNLOADABLE) {
+      //   return (
+      //     <div className="WalletDecrypt-decrypt">
+      //       <InsecureWalletWarning
+      //         walletType={translateRaw(selectedWallet.lid)}
+      //         onCancel={this.clearWalletChoice}
+      //       />
+      //       {process.env.NODE_ENV !== 'production' && (
+      //         <button
+      //           className="WalletDecrypt-decrypt-override"
+      //           onClick={this.overrideInsecureWarning}
+      //         >
+      //           I'm a dev, override this
+      //         </button>
+      //       )}
+      //     </div>
+      //   );
+      // }
 
       return (
         <div className="WalletDecrypt-decrypt">
@@ -488,6 +500,7 @@ export default connect(mapStateToProps, {
   unlockMnemonic: walletActions.unlockMnemonic,
   unlockPrivateKey: walletActions.unlockPrivateKey,
   unlockWeb3: walletActions.unlockWeb3,
+  unlockEximchain: walletActions.unlockEximchain,
   setWallet: walletActions.setWallet,
   resetTransactionRequested: transactionFieldsActions.resetTransactionRequested,
   showNotification: notificationsActions.showNotification

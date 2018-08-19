@@ -1,6 +1,7 @@
 import { TAB } from 'components/Header/components/constants';
 
 type StaticNetworkIds =
+  | 'EXIMCHAIN'
   | 'ETH'
   | 'Ropsten'
   | 'Kovan'

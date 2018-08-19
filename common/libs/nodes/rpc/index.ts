@@ -42,6 +42,7 @@ export default class RpcNode implements INode {
       .then(isValidCallRequest)
       .then(response => response.result);
   }
+
   public getBalance(address: string): Promise<Wei> {
     return this.client
       .call(this.requests.getBalance(address))

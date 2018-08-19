@@ -81,7 +81,9 @@ const mapStateToProps = (state: AppState) => {
     validGasPrice: transactionSelectors.isValidGasPrice(state),
     validGasLimit: transactionSelectors.isValidGasLimit(state),
     signedTx:
-      !!transactionSignSelectors.getSignedTx(state) || !!transactionSignSelectors.getWeb3Tx(state)
+      !!transactionSignSelectors.getSignedTx(state) ||
+      !!transactionSignSelectors.getWeb3Tx(state) ||
+      !!transactionSignSelectors.getEximchainTx(state)
   };
 };
 

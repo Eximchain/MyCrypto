@@ -15,8 +15,9 @@ import {
   makeWeb3Network,
   getShepherdManualMode
 } from 'libs/nodes';
-import { Web3Wallet } from 'libs/wallet';
+import { Web3Wallet, EximchainWallet } from 'libs/wallet';
 import { setupWeb3Node, Web3Service, isWeb3Node } from 'libs/nodes/web3';
+import { setupEximchainNode } from 'libs/nodes/eximchain';
 import { AppState } from 'features/reducers';
 import { showNotification } from 'features/notifications/actions';
 import * as walletTypes from 'features/wallet/types';
@@ -29,7 +30,7 @@ import { getNetworkConfigById, getNetworkByChainId } from './networks/selectors'
 import { CONFIG_NETWORKS_CUSTOM } from './networks/custom/types';
 import { removeCustomNetwork } from './networks/custom/actions';
 import { getCustomNetworkConfigs } from './networks/custom/selectors';
-import { getNodeConfig, getWeb3Node } from './nodes/selectors';
+import { getNodeConfig, getWeb3Node, getEximchainNode } from './nodes/selectors';
 import {
   CONFIG_NODES_CUSTOM,
   AddCustomNodeAction,
@@ -51,7 +52,12 @@ import {
 import { SELECTED_NODE_INITIAL_STATE } from './nodes/selected/reducer';
 import { getNodeId, getPreviouslySelectedNode } from './nodes/selected/selectors';
 import { CONFIG_NODES_STATIC } from './nodes/static/types';
-import { web3SetNode, web3UnsetNode } from './nodes/static/actions';
+import {
+  web3SetNode,
+  web3UnsetNode,
+  eximchainSetNode,
+  eximchainUnsetNode
+} from './nodes/static/actions';
 import { isStaticNodeId } from './nodes/static/selectors';
 import { getAllNodes, getStaticNodeFromId } from './selectors';
 
@@ -295,6 +301,74 @@ export function* initWeb3Node(): SagaIterator {
   return lib;
 }
 
+let eximchainAdded = false;
+
+export function* initEximchainNode(): SagaIterator {
+  const { chainId, lib } = yield call(setupEximchainNode);
+  const network = yield select(getNetworkByChainId, chainId);
+
+  if (!network) {
+    throw new Error(`MyCrypto doesn’t support the network with chain ID '${chainId}'`);
+  }
+
+  const eximchainNetwork = network.id;
+  const id = 'eximchain';
+
+  const config: StaticNodeConfig = {
+    id,
+    isCustom: false,
+    network: eximchainNetwork,
+    service: 'Executor',
+    hidden: true
+  };
+
+  if (getShepherdManualMode()) {
+    yield apply(shepherd, shepherd.auto);
+  }
+
+  if (!eximchainAdded) {
+    shepherd.useProvider('eximchain', id, makeProviderConfig({ network: eximchainNetwork }));
+  }
+
+  eximchainAdded = true;
+
+  yield put(eximchainSetNode({ id, config }));
+  return lib;
+}
+
+export function* unlockEximchain(): SagaIterator {
+  try {
+    const nodeLib = yield call(initEximchainNode);
+
+    yield put(changeNodeRequested('eximchain'));
+    yield take(
+      (action: any) =>
+        action.type === CONFIG_NODES_SELECTED.CHANGE_SUCCEEDED &&
+        action.payload.nodeId === 'eximchain'
+    );
+
+    const eximchainNode: any | null = yield select(getEximchainNode);
+
+    if (!eximchainNode) {
+      throw new Error('Eximchain node config not found');
+    }
+
+    const accounts = yield apply(nodeLib, nodeLib.getAccounts);
+    const address = accounts[0];
+
+    if (!address) {
+      throw new Error('Not accounts found in Eximchain');
+    }
+
+    const wallet = new EximchainWallet(address);
+    yield put(setWallet(wallet));
+  } catch (err) {
+    console.error(err);
+    yield put(eximchainUnsetNode());
+    yield put(showNotification('danger', translateRaw(err.message)));
+  }
+}
+
 // inspired by v3:
 // https://github.com/kvhnuke/etherwallet/blob/417115b0ab4dd2033d9108a1a5c00652d38db68d/app/scripts/controllers/decryptWalletCtrl.js#L311
 export function* unlockWeb3(): SagaIterator {
@@ -382,5 +456,7 @@ export function* configSaga(): SagaIterator {
     takeEvery(walletTypes.WalletActions.UNLOCK_WEB3, unlockWeb3)
   ];
 
-  yield all([...networkSaga, ...nodeSaga, ...web3]);
+  const eximchain = [takeEvery(walletTypes.WalletActions.UNLOCK_EXIMCHAIN, unlockEximchain)];
+
+  yield all([...networkSaga, ...nodeSaga, ...web3, ...eximchain]);
 }

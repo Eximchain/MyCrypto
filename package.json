@@ -163,7 +163,6 @@
     "freezer:validate": "npm run freezer -- --validate",
     "db": "nodemon ./db",
     "build": "webpack --mode=production --config webpack_config/webpack.prod.js",
-    "prebuild": "check-node-version --package",
     "build:downloadable": "webpack --mode=production --config webpack_config/webpack.html.js",
     "prebuild:downloadable": "check-node-version --package",
     "build:electron": "webpack --config webpack_config/webpack.electron-prod.js && node webpack_config/buildElectron.js",
@@ -194,7 +193,7 @@
     "prettier:diff": "prettier --write --config ./.prettierrc --list-different \"common/**/*.ts\" \"common/**/*.tsx\"",
     "prepush": "npm run tslint && npm run tscheck",
     "update:tokens": "ts-node scripts/update-tokens",
-    "postinstall": "electron-rebuild --force"
+    "deploy": "rm -rf dist/prod && npm run build && aws s3 sync dist/prod s3://enuma-mycrypto"
   },
   "lint-staged": {
     "*.{ts,tsx}": [

@@ -92,7 +92,9 @@ export const OnlineSend = connect(
     transactionBroadcasted: transactionSelectors.currentTransactionBroadcasted(state),
     signaturePending: derivedSelectors.signaturePending(state).isSignaturePending,
     signedTx:
-      !!transactionSignSelectors.getSignedTx(state) || !!transactionSignSelectors.getWeb3Tx(state)
+      !!transactionSignSelectors.getSignedTx(state) ||
+      !!transactionSignSelectors.getWeb3Tx(state) ||
+      !!transactionSignSelectors.getEximchainTx(state)
   }),
   {
     showNotification: notificationsActions.showNotification,

@@ -10,6 +10,7 @@ import {
   ETC_LEDGER,
   ETC_TREZOR,
   ETC_SAFE_T,
+  EXIMCHAIN_DEFAULT,
   ETH_DEFAULT,
   ETH_LEDGER,
   ETH_TESTNET,
@@ -32,6 +33,7 @@ import {
 import { makeExplorer } from 'utils/helpers';
 import { StaticNetworksState } from './types';
 import { TAB } from 'components/Header/components/constants';
+import { NODE_CONFIGS } from 'libs/nodes';
 
 const testnetDefaultGasPrice = {
   min: 0.1,
@@ -40,6 +42,30 @@ const testnetDefaultGasPrice = {
 };
 
 export const STATIC_NETWORKS_INITIAL_STATE: StaticNetworksState = {
+  EXIMCHAIN: {
+    id: 'EXIMCHAIN',
+    name: 'Eximchain',
+    unit: 'ETH',
+    chainId: 1235813,
+    isCustom: false,
+    color: '#3498db',
+    blockExplorer: makeExplorer({
+      name: 'Eximchain',
+      origin: NODE_CONFIGS.EXIMCHAIN[0].url
+    }),
+    tokenExplorer: {
+      name: 'Eximchain',
+      address: address => `${NODE_CONFIGS.EXIMCHAIN[0].url}/account/${address}`
+    },
+    tokens: [],
+    contracts: [],
+    dPathFormats: {
+      [InsecureWalletName.MNEMONIC_PHRASE]: EXIMCHAIN_DEFAULT
+    },
+    gasPriceSettings: gasPriceDefaults,
+    shouldEstimateGasPrice: true
+  },
+
   ETH: {
     id: 'ETH',
     name: 'Ethereum',

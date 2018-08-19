@@ -1,3 +1,23 @@
+export const EXIMCHAIN_DEFAULT: DPath = {
+  label: 'DEFAULT (EXIMCHAIN)',
+  value: "m/44'/60'/0'/0"
+};
+
+export const EXIMCHAIN_TREZOR: DPath = {
+  label: 'TREZOR (EXIMCHAIN)',
+  value: "m/44'/60'/0'/0"
+};
+
+export const EXIMCHAIN_SAFE_T: DPath = {
+  label: 'Safe-T (EXIMCHAIN)',
+  value: "m/44'/60'/0'/0"
+};
+
+export const EXIMCHAIN_LEDGER: DPath = {
+  label: 'Ledger (EXIMCHAIN)',
+  value: "m/44'/60'/0'"
+};
+
 export const ETH_DEFAULT: DPath = {
   label: 'Default (ETH)',
   value: "m/44'/60'/0'/0"
@@ -114,6 +134,10 @@ export const ESN_DEFAULT: DPath = {
 };
 
 export const DPaths: DPath[] = [
+  EXIMCHAIN_DEFAULT,
+  EXIMCHAIN_TREZOR,
+  EXIMCHAIN_SAFE_T,
+  EXIMCHAIN_LEDGER,
   ETH_DEFAULT,
   ETH_TREZOR,
   ETH_SAFE_T,
