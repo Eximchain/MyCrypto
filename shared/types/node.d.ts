@@ -25,7 +25,7 @@ interface StaticNodeConfig {
 
 interface RawNodeConfig {
   name: string;
-  type: 'rpc' | 'etherscan' | 'infura' | 'web3' | 'myccustom';
+  type: 'rpc' | 'etherscan' | 'infura' | 'web3' | 'myccustom' | 'eximchain';
   service: string;
   url: string;
 }

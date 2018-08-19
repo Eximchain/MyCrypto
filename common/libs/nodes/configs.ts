@@ -6,6 +6,21 @@ export const makeNodeName = (network: string, name: string) => {
 };
 
 export const NODE_CONFIGS: { [key in StaticNetworkIds]: RawNodeConfig[] } = {
+  EXIMCHAIN: [
+    {
+      name: makeNodeName('Eximchain', 'default'),
+      type: 'eximchain',
+      service: 'Default',
+      url: 'http://168.61.47.117:5000'
+    },
+    {
+      name: makeNodeName('Eximchain', 'local'),
+      type: 'eximchain',
+      service: 'Localhost',
+      url: 'http://127.0.0.1:8080/rpc'
+    }
+  ],
+
   ETH: [
     {
       name: makeNodeName('ETH', 'mycrypto'),

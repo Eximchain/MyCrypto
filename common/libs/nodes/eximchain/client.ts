@@ -13,7 +13,7 @@ export default class EximchainClient extends RPCClient {
     const req = this.decorateRequest(request);
     return fetch(this.endpoint, {
       method: 'POST',
-      headers: this._createHeaders({
+      headers: this.createHeadersPrivate({
         'Content-Type': 'application/json',
         ...this.headers
       }),
@@ -36,7 +36,7 @@ export default class EximchainClient extends RPCClient {
       });
   };
 
-  private _createHeaders = (headerObject: HeadersInit) => {
+  private createHeadersPrivate = (headerObject: HeadersInit) => {
     const headers = new Headers();
     Object.entries(headerObject).forEach(([name, value]) => {
       headers.append(name, value);

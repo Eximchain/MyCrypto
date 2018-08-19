@@ -311,13 +311,13 @@ export function* initEximchainNode(): SagaIterator {
     throw new Error(`MyCrypto doesn’t support the network with chain ID '${chainId}'`);
   }
 
-  const web3Network = makeWeb3Network(network.id);
+  const eximchainNetwork = network.id;
   const id = 'eximchain';
 
   const config: StaticNodeConfig = {
     id,
     isCustom: false,
-    network: web3Network as any,
+    network: eximchainNetwork,
     service: 'Executor',
     hidden: true
   };
@@ -327,7 +327,7 @@ export function* initEximchainNode(): SagaIterator {
   }
 
   if (!eximchainAdded) {
-    shepherd.useProvider('eximchain', id, makeProviderConfig({ network: web3Network }));
+    shepherd.useProvider('eximchain', id, makeProviderConfig({ network: eximchainNetwork }));
   }
 
   eximchainAdded = true;

@@ -122,6 +122,7 @@ const WalletDecrypt = withRouter<Props>(
         icon: EximchainIcon,
         description: 'ADD_EXIMCHAIN_DESC',
         component: EximchainDecrypt,
+        initialParams: {},
         unlock: this.props.unlockEximchain,
         helpLink: 'https://eximchain.com/'
       },
