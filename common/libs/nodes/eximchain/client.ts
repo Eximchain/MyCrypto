@@ -10,24 +10,33 @@ export default class EximchainClient extends RPCClient {
   });
 
   public call = (request: RPCRequest | any): Promise<JsonRpcResponse> => {
+    const req = this.decorateRequest(request);
     return fetch(this.endpoint, {
       method: 'POST',
-      headers: this.createHeaders({
+      headers: this._createHeaders({
         'Content-Type': 'application/json',
         ...this.headers
       }),
-      body: JSON.stringify(this.decorateRequest(request))
+      body: JSON.stringify(req)
     })
       .then(r => r.json())
       .then(json => {
-        if (!json.error) {
+        // Workaround for Go-kit 0.7.0: always adds a member "error":null
+        // https://github.com/go-kit/kit/issues/728
+        if (json.error === null) {
           delete json.error;
+        }
+
+        // Workaround for Go-kit 0.7.0: does not add REQUIRED member "id"
+        // https://github.com/go-kit/kit/pull/742
+        if (json.id === undefined) {
+          json.id = req.id;
         }
         return json;
       });
   };
 
-  private createHeaders = (headerObject: HeadersInit) => {
+  private _createHeaders = (headerObject: HeadersInit) => {
     const headers = new Headers();
     Object.entries(headerObject).forEach(([name, value]) => {
       headers.append(name, value);
