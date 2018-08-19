@@ -6,11 +6,12 @@ import {
 } from 'libs/validators';
 import RPCNode from '../rpc';
 import EximchainClient from './client';
-import EximchainRequests from './requests';
+import { IHexStrWeb3Transaction } from '../../transaction';
+import Web3Requests from '../web3/requests';
 
 export default class EximchainNode extends RPCNode {
   public client: EximchainClient;
-  public requests: EximchainRequests;
+  public requests: Web3Requests;
 
   constructor() {
     const endpoint = `${localStorage.getItem('eximchain_endpoint')}`;
@@ -20,7 +21,7 @@ export default class EximchainNode extends RPCNode {
     this.client = new EximchainClient(endpoint, {
       Authorization: localStorage.getItem('eximchain_auth') || ''
     });
-    this.requests = new EximchainRequests();
+    this.requests = new Web3Requests();
   }
 
   public getNetVersion(): Promise<string> {
