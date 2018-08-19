@@ -30,7 +30,7 @@ class EximchainDecryptClass extends React.Component<Props> {
     return (
       <div>
         <Input
-          placeholder="Enter your executor ip address"
+          placeholder="Enter your executor url (e.g. http://ip:port/rpc)"
           type="text"
           name="endpoint"
           onChange={this.handleChange}
@@ -69,7 +69,10 @@ class EximchainDecryptClass extends React.Component<Props> {
     const { auth, endpoint } = this.state;
 
     if (!this.isEndpointValid()) {
-      return this.props.showNotification('warning', 'Please enter your executor ip address');
+      return this.props.showNotification(
+        'warning',
+        'Please enter your executor url (e.g. http://ip:port/rpc)'
+      );
     }
 
     if (!this.isAuthValid()) {
