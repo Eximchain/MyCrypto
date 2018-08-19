@@ -10,6 +10,10 @@ import {
   ETC_LEDGER,
   ETC_TREZOR,
   ETC_SAFE_T,
+  EXIMCHAIN_DEFAULT,
+  EXIMCHAIN_LEDGER,
+  EXIMCHAIN_TREZOR,
+  EXIMCHAIN_SAFE_T,
   ETH_DEFAULT,
   ETH_LEDGER,
   ETH_TESTNET,
@@ -57,7 +61,12 @@ export const STATIC_NETWORKS_INITIAL_STATE: StaticNetworksState = {
     },
     tokens: [],
     contracts: [],
-    dPathFormats: {},
+    dPathFormats: {
+      //[SecureWalletName.TREZOR]: EXIMCHAIN_TREZOR,
+      //[SecureWalletName.SAFE_T]: EXIMCHAIN_SAFE_T,
+      //[SecureWalletName.LEDGER_NANO_S]: EXIMCHAIN_LEDGER,
+      [InsecureWalletName.MNEMONIC_PHRASE]: EXIMCHAIN_DEFAULT
+    },
     gasPriceSettings: gasPriceDefaults,
     shouldEstimateGasPrice: true
   },
