@@ -20,7 +20,9 @@ export default class EximchainClient extends RPCClient {
     })
       .then(r => r.json())
       .then(json => {
-        if (!json.error) delete json.error;
+        if (!json.error) {
+          delete json.error;
+        }
         return json;
       });
   };
