@@ -2,14 +2,17 @@ import {
   isValidSendTransaction,
   isValidSignMessage,
   isValidGetAccounts,
-  isValidGetNetVersion
+  isValidGetNetVersion,
+  isValidCallRequest
 } from 'libs/validators';
 import RPCNode from '../rpc';
 import EximchainClient from './client';
 import { IHexStrWeb3Transaction } from '../../transaction';
 import Web3Requests from '../web3/requests';
+import { IRPCProvider } from 'mycrypto-shepherd/dist/lib/types';
+import { TxObj } from '../INode';
 
-export default class EximchainNode extends RPCNode {
+export default class EximchainNode extends RPCNode implements IRPCProvider {
   public client: EximchainClient;
   public requests: Web3Requests;
 
@@ -50,6 +53,13 @@ export default class EximchainNode extends RPCNode {
       .call(this.requests.getAccounts())
       .then(isValidGetAccounts)
       .then(({ result }) => result);
+  }
+
+  public sendCallRequests(txObjs: TxObj[]): Promise<string[]> {
+    return this.client
+      .batch(txObjs.map(this.requests.ethCall))
+      .then(r => r.map(isValidCallRequest))
+      .then(r => r.map(({ result }) => result));
   }
 }
 

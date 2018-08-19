@@ -20,6 +20,9 @@ export interface TransactionSignState {
   web3: {
     transaction: Buffer | null;
   };
+  eximchain: {
+    transaction: Buffer | null;
+  };
 }
 
 export interface SignTransactionRequestedAction {

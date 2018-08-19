@@ -10,12 +10,12 @@ export enum CONFIG_NODES_STATIC {
 }
 
 export interface Web3setNodeAction {
-  type: CONFIG_NODES_STATIC.WEB3_SET;
-  payload: { id: 'web3'; config: StaticNodeConfig };
+  type: CONFIG_NODES_STATIC.WEB3_SET | CONFIG_NODES_STATIC.EXIMCHAIN_SET;
+  payload: { id: 'web3' | 'eximchain'; config: StaticNodeConfig };
 }
 
 export interface Web3UnsetNodeAction {
-  type: CONFIG_NODES_STATIC.WEB3_UNSET;
+  type: CONFIG_NODES_STATIC.WEB3_UNSET | CONFIG_NODES_STATIC.EXIMCHAIN_UNSET;
 }
 
 export type StaticNodeAction = Web3setNodeAction | Web3UnsetNodeAction;

@@ -2,7 +2,6 @@ import { getValues } from '../utils/helpers';
 import packageJson from '../../package.json';
 import { GasPriceSetting } from 'types/network';
 import { makeExplorer } from 'utils/helpers';
-import translate from 'translations';
 
 export const languages = require('./languages.json');
 export const discordURL = 'https://discord.gg/VSaTXEA';

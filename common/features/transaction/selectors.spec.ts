@@ -432,6 +432,9 @@ describe('sign tests', () => {
     },
     web3: {
       transaction: null
+    },
+    eximchain: {
+      transaction: null
     }
   }),
     it('should return whether the current signature is pending', () => {

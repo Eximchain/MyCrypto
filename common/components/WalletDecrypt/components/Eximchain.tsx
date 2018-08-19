@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 import { connect } from 'react-redux';
 import { Input } from 'components/ui';
 import { notificationsActions } from 'features/notifications';
@@ -15,6 +15,7 @@ type Props = OwnProps & DispatchProps;
 
 interface State {
   auth: string;
+  endpoint: string;
 }
 
 const EXIMCHAIN_AUTH = 'eximchain_auth';
@@ -61,7 +62,7 @@ class EximchainDecryptClass extends React.Component<Props> {
     return this.state.endpoint.length > 0;
   };
 
-  private handleChange = e => {
+  private handleChange = (e: FormEvent<HTMLInputElement>) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
